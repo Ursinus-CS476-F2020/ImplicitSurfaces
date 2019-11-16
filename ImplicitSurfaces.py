@@ -93,9 +93,34 @@ def getCutSphere():
 def mySurface():
     pix = np.linspace(0, 1, 100)
     x, y, z = np.meshgrid(pix, pix, pix)
-    f = getEllipsoidGaussian(x, y, z, [0.5, 0.5, 0.5], [1, 0, 0], 0.2, [0, 1, 0], 0.1, [0, 0, 1], 0.1)
+    f1 = getEllipsoidGaussian(x, y, z, [0.5, 0.5, 0.5], [1, 0, 0], 0.3, [0, 1, 0], 0.2, [0, 0, 1], 0.1)
+    f2 = getEllipsoidGaussian(x, y, z, [0.5, 0.5, 0.5], [1, 0, 0], 0.05, [0, 1, 0], 0.05, [0, 0, 1], 0.3)
+    f = f1 - 4*f2
     VPos, ITris = mcubes.marching_cubes(f, 0.1)
     saveOffFileExternal("mysurface.off", VPos, ITris)
 
+def getTwoHoledTorus():
+    pix = np.linspace(0, 1, 100)
+    x, y, z = np.meshgrid(pix, pix, pix)
+    f1 = getEllipsoidGaussian(x, y, z, [0.5, 0.5, 0.5], [1, 0, 0], 0.3, [0, 1, 0], 0.2, [0, 0, 1], 0.1)
+    f2 = getEllipsoidGaussian(x, y, z, [0.3, 0.5, 0.5], [1, 0, 0], 0.05, [0, 1, 0], 0.05, [0, 0, 1], 0.3)
+    f3 = getEllipsoidGaussian(x, y, z, [0.7, 0.5, 0.5], [1, 0, 0], 0.05, [0, 1, 0], 0.05, [0, 0, 1], 0.3)
+    f = f1 - 4*f2 - 4*f3
+    VPos, ITris = mcubes.marching_cubes(f, 0.1)
+    saveOffFileExternal("genustwo.off", VPos, ITris)
+
+def getThreeHoledTorus():
+    pix = np.linspace(0, 1, 100)
+    x, y, z = np.meshgrid(pix, pix, pix)
+    f1 = getEllipsoidGaussian(x, y, z, [0.5, 0.5, 0.5], [1, 0, 0], 0.3, [0, 1, 0], 0.3, [0, 0, 1], 0.1)
+    f2 = getEllipsoidGaussian(x, y, z, [0.5+0.2*np.cos(np.pi/2), 0.5+0.2*np.sin(np.pi/2), 0.5], [1, 0, 0], 0.05, [0, 1, 0], 0.05, [0, 0, 1], 0.3)
+    f3 = getEllipsoidGaussian(x, y, z, [0.5+0.2*np.cos(-np.pi/6), 0.5+0.2*np.sin(-np.pi/6), 0.5], [1, 0, 0], 0.05, [0, 1, 0], 0.05, [0, 0, 1], 0.3)
+    f4 = getEllipsoidGaussian(x, y, z, [0.5+0.2*np.cos(7*np.pi/6), 0.5+0.2*np.sin(7*np.pi/6), 0.5], [1, 0, 0], 0.05, [0, 1, 0], 0.05, [0, 0, 1], 0.3)
+    f = f1 - 4*f2 - 4*f3 - 4*f4
+    VPos, ITris = mcubes.marching_cubes(f, 0.1)
+    saveOffFileExternal("genusthree.off", VPos, ITris)
+
 if __name__ == '__main__':
-    mySurface()
+    #mySurface()
+    getTwoHoledTorus()
+    getThreeHoledTorus()
