@@ -26,8 +26,8 @@ class ImplicitCanvas extends SimpleMeshCanvas {
         let gui = this.gui;
         let igui = gui.addFolder("Isocontour Options");
         this.igui = igui;
-        this.res = 50;
-        igui.add(this, "res", 5, 100);
+        this.res =  50;
+        igui.add(this, "res", 5, 200);
         igui.add(this, "updateVolume");
         this.isolevel = 0.5;
         this.isochooser = igui.add(this, "isolevel", 0, 1);

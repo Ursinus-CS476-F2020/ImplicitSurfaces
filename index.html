@@ -38,15 +38,17 @@
 <table>
     <tr>
         <td>
-            <div id="mainEditor">function gauss(x, y, z, cx, cy, cz, sigma) {
-        const dx = x - cx;
-        const dy = y - cy;
-        const dz = z - cz;
-        return Math.exp(-(dx*dx+dy*dy+dz*dz)/(sigma*sigma));
+            <div id="mainEditor">function gauss(X, C, S) {
+    let ret = 1.0;
+    for (let k = 0; k &lt 3; k++) {
+        const dx = X[k] - C[k];
+        ret *= Math.exp(-dx*dx/(S[k]*S[k]));
     }
+    return ret;
+}
 
     function fn(x, y, z) {
-        return gauss(x, y, z, 0, 0, 0, 0.2);
+        return gauss([x, y, z], [0, 0, 0], [0.2, 0.2, 0.2]);
 }</div>
         </td>
     </tr>
