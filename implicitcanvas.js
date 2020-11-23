@@ -14,6 +14,8 @@ class ImplicitCanvas extends SimpleMeshCanvas {
         this.mainEditor = ace.edit(editorName);
         this.mainEditor.setFontSize(16);
         // Setup new parts of menu
+        let bbox = new AABox3D(-1, 1, -1, 1, -1, 1);
+        this.camera.centerOnBBox(bbox);
         this.setupISOMenu();
         this.updateVolume();
     }
@@ -39,8 +41,6 @@ class ImplicitCanvas extends SimpleMeshCanvas {
         let mesh = new BasicMesh();
         let vertices = this.mcubes.vertices;
         let tris = this.mcubes.tris;
-        console.log(vertices);
-        console.log(tris);
         for (let i = 0; i < vertices.length; i++) {
             let v = vertices[i];
             mesh.addVertex(glMatrix.vec3.fromValues(v[0], v[1], v[2]));
@@ -55,7 +55,6 @@ class ImplicitCanvas extends SimpleMeshCanvas {
         this.mesh.edges = mesh.edges;
         this.mesh.faces = mesh.faces;
         this.mesh.needsDisplayUpdate = true;
-        this.centerCamera();
         requestAnimationFrame(this.repaint.bind(this));
     }
 
