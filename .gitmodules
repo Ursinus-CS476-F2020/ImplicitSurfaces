@@ -1,0 +1,6 @@
+[submodule "ImplicitSurfaces"]
+	path = ImplicitSurfaces
+	url = https://github.com/Ursinus-CS476-F2020/ImplicitSurfaces.git
+[submodule "ggslac"]
+	path = ggslac
+	url = https://github.com/ctralie/ggslac.git
